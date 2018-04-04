@@ -1,0 +1,7 @@
+theme: jekyll-theme-minimal
+
+title: MODERN F# DEVELOPMENT USING .NET SDK
+
+github.is_project_page: "false"
+repository: enricosada/fsharpx-2018-workshop.github.io
+
