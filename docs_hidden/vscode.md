@@ -40,13 +40,7 @@ and to change the workspace/sln
 can be changed for repo, workspace or user with
 
 ```
-> Change User Settings
-```
-
-Use .net core as preferred msbuild host
-
-```json
-    "FSharp.msbuildHost": ".net core",
+> Preferences: Open User Settings
 ```
 
 Some nice editor improvements
@@ -60,6 +54,13 @@ Some nice editor improvements
     "FSharp.lineLens.enabled": "replaceCodeLens",
 ```
 
+Disable defaults
+
+```json
+    "editor.minimap.enabled": false,
+    "workbench.startupEditor": "none"
+```
+
 Enable ionide diagnostics
 
 ```json
@@ -67,9 +68,8 @@ Enable ionide diagnostics
     "FSharp.logLanguageServiceRequestsOutputWindowLevel": "DEBUG",
 ```
 
-Disable defaults
+Use .net core as preferred msbuild host
 
 ```json
-    "editor.minimap.enabled": false,
-    "workbench.startupEditor": "none"
+    "FSharp.msbuildHost": ".net core",
 ```
