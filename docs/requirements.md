@@ -7,12 +7,16 @@ permalink: /requirements/
 - [.NET Core Sdk 2.1](#dotnetsdk)
 - [Mono](#mono) (on unix/mac)
 - An editor:
-  - [Visual Studio Code](#vscode) (preferred)
+  - [Visual Studio Code](#vscode)
     - C# extension
     - Ionide-fsharp extension
-  - Visual Studio 2017 [install info](https://docs.microsoft.com/en-us/dotnet/fsharp/get-started/get-started-visual-studio#installing-f) ( version >= 15.6 )
-  - JetBrains Rider [install info](https://www.jetbrains.com/rider/)
 - [Docker and images](#docker) (optional)
+
+Optional editors:
+
+- Visual Studio 2017 [install info](https://docs.microsoft.com/en-us/dotnet/fsharp/get-started/get-started-visual-studio#installing-f) ( version >= 15.6 )
+- JetBrains Rider [install info](https://www.jetbrains.com/rider/)
+
 
 Any v2.0.x (sdk, runtime, docker, etc) is ok. Instructions show latest avaiable.
 
