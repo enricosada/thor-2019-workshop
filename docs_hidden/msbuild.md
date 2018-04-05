@@ -73,8 +73,8 @@ This can be useful to add some shared properties, like package metadata for `pac
   <PropertyGroup>
     <Version>2.1.0</Version>
     <Authors>Enrico Sada</Authors>
-    <Summary>Merge nupkg dependencies</Summary>
-    <Description>Merge dependencies of two nupkg packages</Description>
+    <Summary>My awesome library</Summary>
+    <Description>Do stuff</Description>
   </PropertyGroup>
 </Project>
 ```
