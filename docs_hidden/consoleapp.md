@@ -55,9 +55,10 @@ dotnet build
 This compile the project and show the output:
 
 ```
-Microsoft (R) Build Engine version 15.4.8.50001 for .NET Core
+Microsoft (R) Build Engine version 15.6.82.30579 for .NET Core
 Copyright (C) Microsoft Corporation. All rights reserved.
 
+  Restore completed in 37,31 ms for E:\fsharpx\sample1\sample1.fsproj.
   sample1 -> E:\fsharpx\sample1\bin\Debug\netcoreapp2.0\sample1.dll
 
 Build succeeded.
@@ -140,7 +141,7 @@ Run
 dotnet publish --runtime win-x64 --output out
 ```
 
-and that directory `out` contains `sample1.exe`
+and that directory `out` contains `sample1.exe` you can run directly as `out\sample1.exe 1 2 3`
 
 Doing the same for osx
 
@@ -156,6 +157,15 @@ dotnet publish -r linux-x64 -o outlinux -c Release
 
 NOTE on linux .net core apps has some requirements, like the `libunwind` package installed (see docs)
 
+NOTE to know your local os runtime id (called `RID` like `osx-64`), just do `dotnet --info`
+
+```
+Runtime Environment:
+ OS Name:     Windows
+ OS Version:  10.0.16299
+ OS Platform: Windows
+ RID:         win10-x64
+```
 
 **NOTE** is possibile to bundle these deps as local copies, ref https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-apps.md
 
@@ -170,6 +180,7 @@ NOTE on linux .net core apps has some requirements, like the `libunwind` package
 
 To run it in debugging, without any setting, just:
 
+- Set a breakpoint, in the column on the left of the line
 - Right click on the project
 - do `Debug`
 
@@ -180,17 +191,21 @@ To run it in debugging, without any setting, just:
 Let's configure VS Code to build/debug this project
 VSCode use tasks to run things.
 
-- VSCODE `> Tasks: Configure Task Runner`
+- VSCODE `> Tasks: Configure Default Build Task`
+- choose `create task.json from template`
 - choose `.NET Core`
+
+If there are no error, default behavior is not show message. you can override with
+
+```
+            "presentation": {
+                "reveal": "always"
+            },
+```
 
 To run it:
 
 - VSCODE `> Tasks: Run Build Task`
-- choose `build`
-
-We can also set this task as the default one.
-
-- VSCODE `> Tasks: Configure Default Build Task`
 - choose `build`
 
 So now the default run build use that
@@ -198,17 +213,21 @@ So now the default run build use that
 If there is an error, are shown in `PROBLEMS` tab
 You can move between errors with
 
-- VSCODE `> Go to Next Error or Warning`
+- VSCODE `> Go to Next Problem`
 
 Now, to debug
 
+- Set a breakpoint, in the column on the left of the line
 - Right click on the project in `F# PROJECT EXPLORER`
-- `Configure as Start up project for Debugging`
+- `Debug`
 
-and to debug
+Or you can create a `launch.json` with info about debug with:
 
-- or `> Debug: continue`
-- or `F5`
+- `> Debug: continue`
+- choose `.NET Core`
+- set `program` path to output assembly
+
+now `F5` and `> Debug: continue` will run as usual
 
 ### External package
 
