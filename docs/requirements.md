@@ -6,9 +6,12 @@ permalink: /requirements/
 
 - [.NET Core Sdk 2.1](#dotnetsdk)
 - [Mono](#mono) (on unix/mac)
-- [Visual Studio Code](#vscode)
-  - C# extension
-  - Ionide-fsharp extension
+- An editor:
+  - [Visual Studio Code](#vscode) (preferred)
+    - C# extension
+    - Ionide-fsharp extension
+  - Visual Studio 2017 [install info](https://docs.microsoft.com/en-us/dotnet/fsharp/get-started/get-started-visual-studio#installing-f) ( version >= 15.6 )
+  - JetBrains Rider [install info](https://www.jetbrains.com/rider/)
 - [Docker and images](#docker) (optional)
 
 Any v2.0.x (sdk, runtime, docker, etc) is ok. Instructions show latest avaiable.
@@ -49,14 +52,14 @@ For unix/mac, Windows doesnt need it.
 
 [http://www.mono-project.com/download/](http://www.mono-project.com/download/)
 
-Recommended latest stable 5.4 (or 5.2), required >= 4.8
+Recommended latest stable 5.10, required >= 4.8 (or >= 5.4)
 
 the package is the `mono-complete` (who already contains the `mono-devel`)
 
 Check if is installed correctly with `mono --version` should print:
 
 ```
-Mono JIT compiler version 5.4.1.6 (tarball Wed Nov  8 20:37:08 UTC 2017)
+Mono JIT compiler version 5.10.1.20 (tarball Thu Mar 29 10:44:58 UTC 2018)
 ```
 
 <a name="vscode"></a>
