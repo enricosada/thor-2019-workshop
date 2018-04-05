@@ -98,12 +98,13 @@ let ``hello`` () =
 
 the test can be run with `dotnet test l1.Tests`
 
-In vscode, configure the test task
+In vscode, configure the test task in `tasks.json`
 
-- `> Tasks: Configure Task Runner`
 - same as build task, but with:
   - group kind `test` instead of `build`
   - command: `dotnet test l1.Tests`
+
+Can be set as default with `> Tasks: Configure Default Test Task`
 
 Now tests can be executed with
 
