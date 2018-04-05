@@ -27,7 +27,7 @@ dotnet new console -lang f#
 Now create a `Dockerfile`:
 
 ```dockerfile
-FROM microsoft/dotnet:2.0-sdk AS build-env
+FROM microsoft/dotnet:2-sdk AS build-env
 WORKDIR /app
 
 # copy fsproj and restore as distinct layers
@@ -39,7 +39,7 @@ COPY . ./
 RUN dotnet publish -c Release -o out
 
 # build runtime image
-FROM microsoft/dotnet:2.0-runtime 
+FROM microsoft/dotnet:2-runtime 
 WORKDIR /app
 COPY --from=build-env /app/out ./
 ENTRYPOINT ["dotnet", "sample4.dll"]
@@ -102,7 +102,7 @@ and that's exposed to host at http://127.0.0.1:8083
 Now the `Dockerfile`
 
 ```dockerfile
-FROM microsoft/dotnet:2.0-sdk AS build-env
+FROM microsoft/dotnet:2-sdk AS build-env
 WORKDIR /app
 
 # copy fsproj and restore as distinct layers
@@ -115,7 +115,7 @@ COPY . ./
 RUN dotnet publish -c Release -r linux-x64 -o out
 
 # build runtime image
-FROM microsoft/dotnet:2.0-runtime-deps
+FROM microsoft/dotnet:2-runtime-deps
 WORKDIR /app
 COPY --from=build-env /app/out ./
 ENTRYPOINT ["./sample5"]
