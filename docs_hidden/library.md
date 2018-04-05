@@ -110,29 +110,29 @@ Now tests can be executed with
 
 - `> Tasks: Run Test Task`
 
-## test with expecto
+## test with nunit
 
 The `dotnet new` allow to import additinal templates.
-for example, let use expecto
+for example, let use nunit
 
 First let's import the template
 
 ```
-dotnet new -i Expecto.Template::*
+dotnet new -i "NUnit3.DotNetNew.Template::*"
 ```
 
-now the expecto template is installed (see `dotnet new --list`)
+now the nunit template is installed (see `dotnet new --list`)
 
 ```
 Templates                         Short Name       Language          Tags
 -------------------------------------------------------------------------
-Expecto .net core Template        expecto          F#                Test
+NUnit 3 Test Project              nunit            [C#], F#, VB      Test/NUnit
 ```
 
 to create a new project (`-o` is needed to specify output path)
 
 ```
-dotnet new expecto -n l1.Test2 -o l1.Tests2 -lang f#
+dotnet new nunit -n l1.Tests2 -lang f#
 ```
 
 And add the project reference to `l1`
@@ -144,15 +144,12 @@ dotnet add l1.Tests2 reference l1/l1.fsproj
 and add a new test case
 
 ```fsharp
-    testCase "helloMessage" <| fun _ ->
-      Expect.equal (l1.Say.helloMessage "F# eXchange") "Hello F# eXchange conf" "These should equal"
+    [<Test>]
+    member this.HelloMessage () =
+        Assert.AreEqual("Hello F# eXchange conf", l1.Say.helloMessage "F# eXchange")
 ```
 
-and run it with `dotnet run -p l1.Tests2`.
-
-Because is a normal console app, it's possibile to debug it.
-
-**NOTE** Ionide has also a support for expecto builtin, try the `> Expecto: `
+and run it with `dotnet test l1.Tests2`.
 
 ## pack
 
