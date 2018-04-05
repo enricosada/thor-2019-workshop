@@ -171,7 +171,8 @@ To specify other package metadata (like `Version`), is possibile to:
 - pass is as environment variable (so `Version`)
 - or specify it in an msbuild property inside the like `<Version>1.2.3</Version>`
 
-Others `Authors`, `Summary`, `Description`, `PackageTags`, etc
+Others `Authors`, `Summary`, `Description`, `PackageTags`, etc.
+See [nuspec metadata as properties docs](https://docs.microsoft.com/en-us/dotnet/core/tools/csproj#nuget-metadata-properties)  for more info
 
 ## push
 
@@ -190,3 +191,6 @@ to restore from a dev feed:
 ```
 dotnet add package l1 --version 1.2.3 --source https://www.myget.org/F/fsharpx-2018-workshop/api/v3/index.json
 ```
+
+Additionally, you can manage feeds with `nuget.config`.
+You can create it with `dotnet new nugetconfig`
