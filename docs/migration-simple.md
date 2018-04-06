@@ -158,6 +158,9 @@ So like
     <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
 ```
 
+There you should also add back custom compiler defines, special configuration of the original project.
+All can be used with a `Condition=" '$(TargetFramework)' == 'net452' "` or any other property
+
 After that, we need to redo restore.
 
 ```
