@@ -295,3 +295,35 @@ dotnet run -- --port 81
 
 **NOTE** by default configuration, the `--help` raise an exception in Argu.
 Try with debugging, you can see the `ex.ErrorCode` is `HelpText`
+
+### Multi Targeting
+
+The sdk support multi target framework as first class.
+
+Change from
+
+```
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+```
+
+to the **PLURAL**, the is an `s` at end ( <-- **PLURAL** )
+
+```
+    <TargetFrameworks>netcoreapp2.0;net471</TargetFrameworks>
+```
+
+You can add all tfm you want `netcoreapp2.0;net452;net462` etc.
+Same for libraries
+
+Now just restore
+
+```
+dotnet restore
+```
+
+and to build all frameworks, just `dotnet build`
+Use `dotnet build -f netcoreapp2.0` to build just one.
+
+All commands (`test`, etc) have a `--framework` of `-f` parameter
+
+You can conditionally add msbuild items (like `Compile`, `PackageReference` or `ProjectReference`) with the attribute `Condition=" '$(TargetFramework)' == 'netcoreapp2.0' "`
