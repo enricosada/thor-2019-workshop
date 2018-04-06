@@ -177,6 +177,37 @@ The `-c Release` with build it in `Release` configuration, if needed
 Is possibile to make the project target both frameworks (so `net461` and `netstandard2.0`) using `TargetFrameworks` (plural)
 And creating the package with just one `dotnet pack`, so pratically replacing the old way.
 
+## Paket
+
+Use paket instead of project references, some info in [paket docs](https://fsprojects.github.io/Paket/paket-and-dotnet-cli.html)
+
+Usually you should add `framework: net462, netcoreapp2.0, netstandard2.0` as restriction, so paket fix that
+
+## FAKE
+
+Fake 4 has helpers to run the `dotnet` commands (see [docs](https://fake.build/apidocs/fake-dotnetcli.html) ).
+Your build script should run these instead of msbuild. Like
+
+```
+DotNetCli.Restore
+DotNetCli.Build
+```
+
+Always `restore`, `build` the solution, not each project in loop, is faster
+With paket, first `paket restore`
+
+## Travis
+
+just use `dotnet` attribute in `.travis.yml` to support that ([docs](https://docs.travis-ci.com/user/languages/csharp/)).
+
+```
+dotnet: 2.1.4
+```
+
+that is the .net core sdk version
+
+## Maintain old fsproj in parallel
+
 But if you want to just add netstandard, we can use the old way, so no changes needed for .NET Framework
 
 This can be done using a .net cli tool: [dotnet-mergenupkg](https://github.com/enricosada/dotnet-mergenupkg)
@@ -222,8 +253,3 @@ dotnet mergenupkg --source ../bin/FSharpx.Collections.1.17.0.nupkg --other ../sr
 ```
 
 And the package now support .NET Standard 2.0 and is ready to be published
-
-## Additional work
-
-Use paket instead of project references, some info in [paket docs](https://fsprojects.github.io/Paket/paket-and-dotnet-cli.html)
-
