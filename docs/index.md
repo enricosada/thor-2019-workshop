@@ -13,3 +13,5 @@ Each tutorial explore some features, who are later used for migrate projects.
 - <a href="{{ site.baseurl }}{% link docker.md %}"><strong>Docker</strong></a>
 
 After that, two examples of migration
+
+- <a href="{{ site.baseurl }}{% link migration-simple.md %}"><strong>Simple migration</strong></a>
