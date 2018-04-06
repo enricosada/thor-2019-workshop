@@ -148,23 +148,62 @@ Now, let's try to run it
 dotnet run
 ```
 
-## Adding Multi targeting.
+## Adding Multi targeting, to build .NET Framework like the original project.
 
+We need to use `<TargetFrameworks` (**plural**, really, **plural**. I said **plural** already?) instead of `TargetFramework` and add `net452`.
 
+So like
+
+```
+    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
+```
+
+After that, we need to redo restore.
+
+```
+dotnet restore MyApp.NetCore.sln
+```
+
+and build it (this will build all target frameworks).
+
+```
+cd src\MyApp.NetCore
+dotnet build
+```
+
+and run a specific framework, like
+
+```
+dotnet run -f net452
+dotnet run -f netcoreapp2.0
+```
+
+`NOTE` the `run` command call `build` if needed. the `build` command call `restore` if needed.
+So most of the time, is ok just run the command you want, the `dotnet` cli should do what is needed.
 
 ## package it
 
 Run 
 
 ```
+cd src\MyLib.NetStandard
 dotnet pack -c Release
 ```
 
 or `dotnet pack -c Release /p:Version=1.2.3` to generate a specific version
 
-The `-c Release` with build it in `Release` configuration, if needed
+The `-c Release` is used to build it in `Release` configuration.
 
-## add the netstandard to the package
+## Remove old project
 
-Is possibile to make the project target both frameworks (so `net461` and `netstandard2.0`) using `TargetFrameworks` (plural)
-And creating the package with just one `dotnet pack`, so pratically replacing the old way.
+Now you can just remove the old projects, move the new fsproj and update relative paths inside fsprojs
+
+## Additional work usually needed in real world projects
+
+- Configure the nuget package metadata inside the fsproj with properties, for `dotnet pack`
+- Move common stuff (package info, defines, etc) in the automatically imported `Directory.Build.props` file
+- Call the `dotnet` commands in the build script
+  - Best is to `dotnet restore` the solution, not each project :D. Same for `build`, `pack`, etc
+- Convert the test suites, to use `dotnet test` command instead of specific tools (but depends, like `dotnet xunit`)
+- Refactor usage of incompatibilies as compiler defines, not just `#if NETSTANDARD2_0`
+- Target .NET 4.7.1 if possibile, because support .NET Standard 2.0 without shims
