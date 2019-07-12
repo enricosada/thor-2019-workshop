@@ -11,3 +11,9 @@ Each tutorial explore some features for the usual scenarios.
 - <a href="{{ site.baseurl }}{% link consoleapp.md %}"><strong>Console app</strong></a>
 - <a href="{{ site.baseurl }}{% link library.md %}"><strong>Library</strong></a>
 - <a href="{{ site.baseurl }}{% link docker.md %}"><strong>Docker</strong></a>
+
+More details about
+
+- <a href="{{ site.baseurl }}{% link vscode.md %}"><strong>Visual Studio Code</strong></a>
+- <a href="{{ site.baseurl }}{% link msbuild.md %}"><strong>MSbuild</strong></a>
+- <a href="{{ site.baseurl }}{% link template.md %}"><strong>.NET Templates</strong></a>
