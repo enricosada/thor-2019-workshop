@@ -69,6 +69,8 @@ Enable ionide diagnostics
 
 ## Remote development in container
 
+Require [Remote Development extension bundle](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack&ssr=false#qna)
+
 more info in [https://code.visualstudio.com/docs/remote/containers](https://code.visualstudio.com/docs/remote/containers)
 
 Create a `.devcontainer/Dockerfile` who contains the build environment
