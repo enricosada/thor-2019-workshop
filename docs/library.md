@@ -208,3 +208,22 @@ Custom feed can be set with msbuild property `RestoreAdditionalSources`
 
 Additionally, you can manage feeds with a `nuget.config` file.
 You can create it with `dotnet new nugetconfig`
+
+# sln
+
+To manage a solution, there is `dotnet sln` command
+
+First let's create a solution
+
+```
+dotnet new sln
+```
+
+and let's add the projects
+
+```
+dotnet sln add c1
+dotnet sln add l1
+```
+
+Use `> F#: Change Workspace or Solution` to switch solution in Visual Studio Code
