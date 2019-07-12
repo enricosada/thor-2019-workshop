@@ -34,7 +34,7 @@ Open the `Program.fs` in the editor
 
 This is the entrypoint of the of the program, the `main` and the args passed to the console app
 
-When ionide is started, make the `F# PROJECT EXPLORER` visible on bottom-left corner of code.
+When ionide is started, it make the `F# PROJECT EXPLORER` visible on the left panels.
 This contains the projects loaded
 
 ![project explorer]({{ site.baseurl }}/assets/ionide_project_explorer.png)
@@ -55,25 +55,25 @@ dotnet build
 This compile the project and show the output:
 
 ```
-Microsoft (R) Build Engine version 15.6.82.30579 for .NET Core
+Microsoft (R) Build Engine version 16.1.76+g14b0a930a7 for .NET Core
 Copyright (C) Microsoft Corporation. All rights reserved.
 
-  Restore completed in 37,31 ms for E:\fsharpx\sample1\sample1.fsproj.
-  sample1 -> E:\fsharpx\sample1\bin\Debug\netcoreapp2.0\sample1.dll
+  Restore completed in 25.58 ms for C:\thor-w\sample1\sample1.fsproj.
+  sample1 -> C:\thor-w\sample1\bin\Debug\netcoreapp2.1\sample1.dll
 
 Build succeeded.
     0 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:01.23
+Time Elapsed 00:00:02.72
 ```
 
-So the output is `bin/Debug/netcoreapp2.0/sample1.dll`
+So the output is `bin/Debug/netcoreapp2.1/sample1.dll`
 
 To run it:
 
 ```
-dotnet bin/Debug/netcoreapp2.0/sample1.dll
+dotnet bin/Debug/netcoreapp2.1/sample1.dll
 ```
 
 Now let's pass some arguments.
@@ -91,7 +91,7 @@ Now another time, compile and execute. Run:
 
 ```
 dotnet build
-dotnet bin/Debug/netcoreapp2.0/sample1.dll a b --other a
+dotnet bin/Debug/netcoreapp2.1/sample1.dll a b --other a
 ```
 
 A faster way to do it, is use `dotnet run` command, who does the same thing
@@ -109,6 +109,7 @@ Two possibilities of deployment:
 - `framework dependent` (FDD)
   - CONS require .net core runtime installed in target machine
   - CONS executed as `dotnet app.dll`
+  - CONS bundle all the native deps for all os
   - PRO same binaries for all os
   - PRO small size of binaries
 - `self contained` (SCD)
@@ -126,11 +127,17 @@ Run
 dotnet publish
 ```
 
-This create the `bin/Debug/netcoreapp2.0/publish/` directory
+This create the `bin/Debug/netcoreapp2.1/publish/` directory
 who can be copied in another machine, and run with
 
 ```
 dotnet sample1.dll
+```
+
+For example directly from WSL with
+
+```
+dotnet /mnt/c/thor-w/sample1/bin/Debug/netcoreapp2.1/publish/sample1.dll d e
 ```
 
 ### Now a SCD, in another directory
@@ -162,9 +169,10 @@ NOTE to know your local os runtime id (called `RID` like `osx-64`), just do `dot
 ```
 Runtime Environment:
  OS Name:     Windows
- OS Version:  10.0.16299
+ OS Version:  10.0.17763
  OS Platform: Windows
  RID:         win10-x64
+ Base Path:   C:\Program Files\dotnet\sdk\2.1.701\
 ```
 
 **NOTE** is possibile to bundle these deps as local copies, ref https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-apps.md
@@ -215,16 +223,12 @@ You can move between errors with
 
 - VSCODE `> Go to Next Problem`
 
-Now, to debug
+Now, to debug you can create a `launch.json` with info about debug with:
 
-- Set a breakpoint, in the column on the left of the line
-- Right click on the project in `F# PROJECT EXPLORER`
-- `Debug`
-
-Or you can create a `launch.json` with info about debug with:
-
-- `> Debug: continue`
+- `> Debug: Start Debugging`
 - choose `.NET Core`
+- on the bottom right, click the button `Add Configuration...`
+- choose `.NET Core Launch (console)`
 - set `program` path to output assembly
 
 now `F5` and `> Debug: continue` will run as usual

@@ -18,16 +18,21 @@ Optional editors:
 - JetBrains Rider [install info](https://www.jetbrains.com/rider/)
 
 
-Any v2.0.x (sdk, runtime, docker, etc) is ok. Instructions show latest avaiable.
+Any v2.1.x (sdk, runtime, docker, etc) is ok. Instructions show latest avaiable.
 
 <a name="dotnetsdk"></a>
 ## .NET Core Sdk 2.1
 
 Install the Sdk (not the Runtime):
 
-[https://www.microsoft.com/net/download/core#/sdk](https://www.microsoft.com/net/download/core#/sdk)
+[https://dotnet.microsoft.com/download/dotnet-core](https://dotnet.microsoft.com/download/dotnet-core)
 
-In the page there are also the `Step-by-step instructions`
+
+- Choose the version [.NET Core 2.1](https://dotnet.microsoft.com/download/dotnet-core/2.1)
+- In the `Sdk` column, download the `.NET Core Installer` (x64 is ok)
+- The latest version currently (and used in this workshop) is `2.1.701`
+
+![project explorer]({{ site.baseurl }}/assets/install_netcoresdk.png)
 
 Prerequisites:
 
@@ -38,32 +43,11 @@ Prerequisites:
 Check if is installed correctly with `dotnet --info` should print:
 
 ```
-.NET Command Line Tools (2.1.103)
-
-Product Information:
- Version:            2.1.103
- Commit SHA-1 hash:  60218cecb5
+.NET Core SDK (reflecting any global.json):
+ Version:   2.1.701
+ Commit:    8cf7278aa1
 
 <additional info about os>
-```
-
-<a name="mono"></a>
-## Mono on unix/mac
-
-For unix/mac, Windows doesnt need it.
-
-`NOTE` it's a prerequisite of Ionide extension in VS Code, but [is going away sooner than later](https://github.com/ionide/ionide-vscode-fsharp/wiki/Version-3.13.0#experimental---use-net-core-fsautocomplete)
-
-[http://www.mono-project.com/download/](http://www.mono-project.com/download/)
-
-Recommended latest stable 5.10, required >= 4.8 (or >= 5.4)
-
-the package is the `mono-complete` (who already contains the `mono-devel`)
-
-Check if is installed correctly with `mono --version` should print:
-
-```
-Mono JIT compiler version 5.10.1.20 (tarball Thu Mar 29 10:44:58 UTC 2018)
 ```
 
 <a name="vscode"></a>
@@ -97,50 +81,60 @@ Docker 17.06 or higher is recommended because the workshop use the [multi stage 
 Docker images to download:
 
 ```bash
-docker pull microsoft/dotnet:2-sdk
-docker pull microsoft/dotnet:2-runtime
-docker pull microsoft/dotnet:2-runtime-deps
+docker pull mcr.microsoft.com/dotnet/core/sdk:2.1.701
+docker pull mcr.microsoft.com/dotnet/core/runtime:2.1
+docker pull mcr.microsoft.com/dotnet/core/runtime-deps:2.1
 ```
 
 Check is installed correctly:
 
 ```bash
-docker run --rm microsoft/dotnet:2-sdk dotnet --info
+docker run --rm mcr.microsoft.com/dotnet/core/sdk:2.1.701 dotnet --version
 ```
 
 should print:
 
 ```
-.NET Command Line Tools (2.1.101)
-
-Product Information:
- Version:            2.1.101
- Commit SHA-1 hash:  6c22303bf0
+.NET Core SDK (reflecting any global.json):
+ Version:   2.1.701
+ Commit:    8cf7278aa1
 
 Runtime Environment:
  OS Name:     debian
  OS Version:  9
  OS Platform: Linux
- RID:         linux-x64
- Base Path:   /usr/share/dotnet/sdk/2.1.101/
+ RID:         debian.9-x64
+ Base Path:   /usr/share/dotnet/sdk/2.1.701/
 
-Microsoft .NET Core Shared Framework Host
+Host (useful for support):
+  Version: 2.1.12
+  Commit:  ccea2e606d
 
-  Version  : 2.0.6
-  Build    : 74b1c703813c8910df5b96f304b0f2b78cdf194d
+.NET Core SDKs installed:
+  2.1.701 [/usr/share/dotnet/sdk]
+
+.NET Core runtimes installed:
+  Microsoft.AspNetCore.All 2.1.12 [/usr/share/dotnet/shared/Microsoft.AspNetCore.All]
+  Microsoft.AspNetCore.App 2.1.12 [/usr/share/dotnet/shared/Microsoft.AspNetCore.App]
+  Microsoft.NETCore.App 2.1.12 [/usr/share/dotnet/shared/Microsoft.NETCore.App]
 ```
 
 and
 
 ```bash
-docker run --rm microsoft/dotnet:2-runtime dotnet --info
+docker run --rm mcr.microsoft.com/dotnet/core/runtime:2.1 dotnet --info
 ```
 
 should print:
 
 ```
-Microsoft .NET Core Shared Framework Host
+Host (useful for support):
+  Version: 2.1.12
+  Commit:  ccea2e606d
 
-  Version  : 2.0.6
-  Build    : 74b1c703813c8910df5b96f304b0f2b78cdf194d
+.NET Core SDKs installed:
+  No SDKs were found.
+
+.NET Core runtimes installed:
+  Microsoft.NETCore.App 2.1.12 [/usr/share/dotnet/shared/Microsoft.NETCore.App]
 ```

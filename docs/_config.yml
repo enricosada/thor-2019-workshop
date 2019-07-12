@@ -1,7 +1,7 @@
 theme: jekyll-theme-minimal
 
-title: MIGRATE YOUR APPLICATION/LIBRARY TO .NET CORE/STANDARD
+title: MODERN F# DEVELOPMENT USING .NET SDK
 
 github.is_project_page: "false"
-repository: enricosada/fsharpx-2018-workshop.github.io
+repository: enricosada/thor-2019-workshop.github.io
 
