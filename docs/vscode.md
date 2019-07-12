@@ -64,12 +64,6 @@ Disable defaults
 Enable ionide diagnostics
 
 ```json
-    "FSharp.logLanguageServiceRequests": "both",
-    "FSharp.logLanguageServiceRequestsOutputWindowLevel": "DEBUG",
+    "FSharp.trace.server": "verbose"
 ```
 
-Use .net core as preferred msbuild host
-
-```json
-    "FSharp.msbuildHost": ".net core",
-```

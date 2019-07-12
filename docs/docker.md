@@ -142,3 +142,89 @@ and run
 ```
 docker run --rm -p 8083:8083 sample5
 ```
+
+## debug containers
+
+first, let's create a console app in a `sample6` directory
+
+```
+dotnet new console -lang f# -n sample6
+```
+
+add some code to read current working directory, and wait for input (so process doesnt exit)
+
+```
+    let dir = System.Environment.CurrentDirectory
+    printfn "workingDir '%s'" dir
+
+    let x = Console.ReadLine()
+    printfn "echo %s" x
+```
+
+and a `Dockerfile` to build it
+
+```
+FROM mcr.microsoft.com/dotnet/core/sdk:2.1.701 AS build-env
+
+# install debugger
+RUN apt update && \
+    apt install unzip && \
+    curl -sSL https://aka.ms/getvsdbgsh | /bin/sh /dev/stdin -v latest -l /vsdbg
+
+# copy everything else and build
+WORKDIR /app
+
+COPY . ./
+RUN dotnet publish -o out
+
+ENTRYPOINT ["dotnet", "./out/sample6.dll"]
+```
+
+And the usual `.dockerignore`
+
+```
+bin/
+obj/
+out/
+```
+
+We need now to add in the `launch.json` a configuration to attach to remote docker process.
+
+`NOTE` the `admiring_beaver` is the name of the container
+`NOTE` the `/app` is the working dir of the container, to map the same path for sources
+
+
+```
+        {
+            "name": ".NET Core Docker Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickRemoteProcess}",
+            "pipeTransport": {
+                "pipeProgram": "docker",
+                "pipeArgs": [ "exec", "-i", "admiring_beaver" ],
+                "debuggerPath": "/vsdbg/vsdbg",
+                "pipeCwd": "${workspaceRoot}",
+                "quoteArgs": false
+            },
+            "sourceFileMap": {
+                "/app": "${workspaceRoot}"
+            }
+        }
+```
+
+And build the container and run it
+
+```
+docker build -t sample6 .
+docker run --name admiring_beaver --rm -i -t sample6
+```
+
+the container will wait for input, we can now attach to it.
+
+Start debug of `.NET Core Docker Attach` and choose the `dotnet` process
+
+![choose process]({{ site.baseurl }}/assets/attach_debug_docker.png)
+
+Now you can paused, and you are in debug, with breakpoints etc
+
