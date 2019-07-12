@@ -85,7 +85,7 @@ Now add suave code in `main`
 
 with an
 
-```
+```fsharp
 open Suave
 ```
 
@@ -153,7 +153,7 @@ dotnet new console -lang f# -n sample6
 
 add some code to read current working directory, and wait for input (so process doesnt exit)
 
-```
+```fsharp
     let dir = System.Environment.CurrentDirectory
     printfn "workingDir '%s'" dir
 
@@ -163,7 +163,7 @@ add some code to read current working directory, and wait for input (so process 
 
 and a `Dockerfile` to build it
 
-```
+```dockerfile
 FROM mcr.microsoft.com/dotnet/core/sdk:2.1.701 AS build-env
 
 # install debugger
@@ -194,7 +194,7 @@ We need now to add in the `launch.json` a configuration to attach to remote dock
 `NOTE` the `/app` is the working dir of the container, to map the same path for sources
 
 
-```
+```json
         {
             "name": ".NET Core Docker Attach",
             "type": "coreclr",

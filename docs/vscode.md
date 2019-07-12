@@ -73,7 +73,7 @@ more info in [https://code.visualstudio.com/docs/remote/containers](https://code
 
 Create a `.devcontainer/Dockerfile` who contains the build environment
 
-```
+```dockerfile
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2
 
 # Configure apt

@@ -306,13 +306,13 @@ The sdk support multi target framework as first class.
 
 Change from
 
-```
+```xml
     <TargetFramework>netcoreapp2.1</TargetFramework>
 ```
 
 to the **PLURAL**, the is an `s` at end ( <-- **PLURAL** )
 
-```
+```xml
     <TargetFrameworks>netcoreapp2.1;net471</TargetFrameworks>
 ```
 
@@ -326,7 +326,12 @@ dotnet restore
 ```
 
 and to build all frameworks, just `dotnet build`
-Use `dotnet build -f netcoreapp2.1` to build just one.
+
+To build just one use:
+
+```
+dotnet build -f netcoreapp2.1
+``` 
 
 All commands (`test`, etc) have a `--framework` of `-f` parameter
 
@@ -338,7 +343,7 @@ Condition=" '$(TargetFramework)' == 'netcoreapp2.1' "
 
 It works also for compiler defines or custom properties, to avoid couple multiple behaviour changes with a single target framework
 
-```
+```xml
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <DefineConstants>$(DefineConstants);USE_AZURESTORAGE_ASYNC</DefineConstants>
   </PropertyGroup>
