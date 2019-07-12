@@ -16,18 +16,16 @@ Use workflow 2, build with sdk and run with runtime image
 
 This is supported by multi staged docker build
 
-In a `sample4` directory.
-
-first, let's create a console app, run:
+first, let's create a console app in a `sample4` directory, run:
 
 ```
-dotnet new console -lang f#
+dotnet new console -lang f# -o sample4
 ```
 
 Now create a `Dockerfile`:
 
 ```dockerfile
-FROM microsoft/dotnet:2-sdk AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk:2.1.701 AS build-env
 WORKDIR /app
 
 # copy fsproj and restore as distinct layers
@@ -39,7 +37,7 @@ COPY . ./
 RUN dotnet publish -c Release -o out
 
 # build runtime image
-FROM microsoft/dotnet:2-runtime 
+FROM mcr.microsoft.com/dotnet/core/runtime:2.1 
 WORKDIR /app
 COPY --from=build-env /app/out ./
 ENTRYPOINT ["dotnet", "sample4.dll"]
@@ -71,12 +69,10 @@ docker run --rm sample4 "from inside docker"
 
 Let's use suave, with workflow 3
 
-In a `sample4` directory.
-
-first, let's create a console app
+first, let's create a console app in a `sample5` directory
 
 ```
-dotnet new console -lang f#
+dotnet new console -lang f# -n sample5
 ```
 
 And add Suave
@@ -87,7 +83,13 @@ dotnet add package Suave
 
 Now add suave code in `main`
 
-with `open Suave` and
+with an
+
+```
+open Suave
+```
+
+and
 
 ```fsharp
     startWebServer
@@ -102,7 +104,7 @@ and that's exposed to host at http://127.0.0.1:8083
 Now the `Dockerfile`
 
 ```dockerfile
-FROM microsoft/dotnet:2-sdk AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk:2.1.701 AS build-env
 WORKDIR /app
 
 # copy fsproj and restore as distinct layers
@@ -115,7 +117,7 @@ COPY . ./
 RUN dotnet publish -c Release -r linux-x64 -o out
 
 # build runtime image
-FROM microsoft/dotnet:2-runtime-deps
+FROM mcr.microsoft.com/dotnet/core/runtime-deps:2.1
 WORKDIR /app
 COPY --from=build-env /app/out ./
 ENTRYPOINT ["./sample5"]
