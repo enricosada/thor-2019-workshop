@@ -46,14 +46,14 @@ dotnet new console -n c1 -lang f#
 And now reference the `l1` from `c1`
 
 ```
-dotnet add c1 reference l1/l1.fsproj
+dotnet add c1 reference l1
 ```
 
 Is now possibile to use the methods from l1 in c1
 Add to main
 
 ```fsharp
-    l1.Say.hello "F# eXchange!"
+    l1.Say.hello "Thor!"
 ```
 
 to run it:
@@ -93,10 +93,11 @@ and test it in `Tests.fs`
 ```fsharp
 [<Fact>]
 let ``hello`` () =
-    Assert.Equal("Hello F# eXchange", (l1.Say.helloMessage "F# eXchange conf"))
+    Assert.Equal("Hello Thor", (l1.Say.helloMessage "Thor at JET"))
 ```
 
 the test can be run with `dotnet test l1.Tests`
+
 
 In vscode, configure the test task in `tasks.json`
 
@@ -109,6 +110,16 @@ Can be set as default with `> Tasks: Configure Default Test Task`
 Now tests can be executed with
 
 - `> Tasks: Run Test Task`
+
+## watch
+
+You can also use `dotnet watch` to watch for changes in files and rerun any command
+
+For example for tests
+
+```
+dotnet watch -p l1.Tests test
+```
 
 ## test with nunit
 
@@ -132,13 +143,13 @@ NUnit 3 Test Project              nunit            [C#], F#, VB      Test/NUnit
 to create a new project (`-o` is needed to specify output path)
 
 ```
-dotnet new nunit -n l1.Tests2 -lang f#
+dotnet new nunit -n l1.Tests2 -lang f# -f netcoreapp2.1
 ```
 
 And add the project reference to `l1`
 
 ```
-dotnet add l1.Tests2 reference l1/l1.fsproj
+dotnet add l1.Tests2 reference l1
 ```
 
 and add a new test case
@@ -146,7 +157,7 @@ and add a new test case
 ```fsharp
     [<Test>]
     member this.HelloMessage () =
-        Assert.AreEqual("Hello F# eXchange conf", l1.Say.helloMessage "F# eXchange")
+        Assert.AreEqual("Hello Thor at JET", l1.Say.helloMessage "Thor")
 ```
 
 and run it with `dotnet test l1.Tests2`.
@@ -162,7 +173,7 @@ dotnet pack l1 -c Release /p:Version=1.2.3
 this will create a package
 
 ```
-Successfully created package 'E:\fsharpx\sample2\l1\bin\Release\l1.1.2.3.nupkg'.
+  Successfully created package 'C:\thor-w\sample2\l1\bin\Release\l1.1.2.3.nupkg'.
 ```
 
 To specify other package metadata (like `Version`), is possibile to:
@@ -183,14 +194,17 @@ For example, to push to myget feed
 RUN
 
 ```
-dotnet nuget push l1/bin/Release/l1.1.2.3.nupkg -s https://www.myget.org/F/fsharpx-2018-workshop/api/v2/package -k fb4e7360-9c89-4a25-982f-64760ca089a5
+dotnet nuget push l1/bin/Release/l1.1.2.3.nupkg -s https://www.myget.org/F/thor-workshop/api/v2/package -k fb4e7360-9c89-4a25-982f-64760ca089a5
 ```
 
 to restore from a dev feed:
 
 ```
-dotnet add package l1 --version 1.2.3 --source https://www.myget.org/F/fsharpx-2018-workshop/api/v3/index.json
+dotnet add package l1 --version 1.2.3 --source https://www.myget.org/F/thor-workshop/api/v3/index.json
 ```
 
-Additionally, you can manage feeds with `nuget.config`.
+
+Custom feed can be set with msbuild property `RestoreAdditionalSources`
+
+Additionally, you can manage feeds with a `nuget.config` file.
 You can create it with `dotnet new nugetconfig`

@@ -7,15 +7,40 @@ permalink: /msbuild/
 
 New features of the Sdk
 
-- Create a custom nuget package (like with `nuspec`)
 - Add shared auto-imported properties, with `Directory.build.props`
+- Create a custom nuget package (like with `nuspec`)
 
+
+<a name="directory-build-props"></a>
+## add shared auto-imported properties, with `Directory.Build.props`
+
+The Sdk search in the directory hieriachy, auto-import if exists, a file named
+
+```
+Directory.Build.props
+```
+
+This can be useful to add some shared properties, like package metadata for `pack`
+
+```xml
+<Project ToolsVersion="15.0">
+
+  <PropertyGroup>
+    <Version>2.1.0</Version>
+    <Authors>Enrico Sada</Authors>
+    <Summary>My awesome library</Summary>
+    <Description>Do stuff</Description>
+  </PropertyGroup>
+</Project>
+```
 
 <a name="custom-pack"></a>
 ## create nuget packages custom (no compilation)
 
 Useful for templates, custom packages, etc.
-This can be used to replace the `.nuspec` files
+This can be used to replace the `.nuspec` files.
+
+`NOTE` properties may change a bit from sdk version to version
 
 Any msbuild project using `Microsoft.NET.Sdk` has a `Pack` target
 
@@ -55,28 +80,5 @@ The first properties are needed to skip compilation, ignore implicit references
 
 All the usual `Pack` properties (like `PackageId`, `Authors`, etc) can be used.
 Also `PackageReference` if needed.
-
-<a name="directory-build-props"></a>
-## add shared auto-imported properties, with `Directory.Build.props`
-
-The Sdk search in the directory hieriachy, auto-import if exists, a file named
-
-```
-Directory.Build.props
-```
-
-This can be useful to add some shared properties, like package metadata for `pack`
-
-```xml
-<Project ToolsVersion="15.0">
-
-  <PropertyGroup>
-    <Version>2.1.0</Version>
-    <Authors>Enrico Sada</Authors>
-    <Summary>My awesome library</Summary>
-    <Description>Do stuff</Description>
-  </PropertyGroup>
-</Project>
-```
 
 
